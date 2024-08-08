@@ -20,7 +20,6 @@ public class MonthlyTrackingController {
     @GetMapping
     public ResponseEntity<List<MonthlyTracking>> getAllTrackings() {
         List<MonthlyTracking> trackings = monthlyTrackingService.getAllTrackings();
-
         return ResponseEntity.ok(trackings);
     }
     @GetMapping("/users/{userId}/taskPackages")
@@ -50,5 +49,4 @@ public class MonthlyTrackingController {
         monthlyTrackingService.deleteTracking(id);
         return ResponseEntity.noContent().build();
     }
-
 }

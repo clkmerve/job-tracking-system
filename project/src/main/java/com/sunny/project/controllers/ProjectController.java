@@ -34,7 +34,7 @@ public class ProjectController {
     }
     @PutMapping("/{projectId}")
     public ResponseEntity<Project> updateOneProject(@PathVariable Long projectId, @RequestBody Project newProject) {
-        newProject.setId(projectId);
+        newProject.setId(projectId); // Ensure the ID is set
         Project updatedProject = projectService.update(newProject);
         return ResponseEntity.ok(updatedProject);
     }
@@ -43,6 +43,7 @@ public class ProjectController {
         projectService.deleteById(projectId);
     }
 
+    //yeni 29.05
     @GetMapping("/{projectId}/users")
     public List<User> getUsersByProject(@PathVariable Long projectId) {
         return projectService.getUsersByProjectId(projectId);
@@ -60,6 +61,7 @@ public class ProjectController {
             return ResponseEntity.notFound().build();
         }
     }
+
 
     @GetMapping("/{projectId}/taskPackages")
     public ResponseEntity<List<TaskPackage>> getTaskPackages(@PathVariable Long projectId) {

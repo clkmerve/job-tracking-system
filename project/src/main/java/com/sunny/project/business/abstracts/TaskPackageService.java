@@ -13,7 +13,4 @@ public interface TaskPackageService {
     void deleteTaskPackage(Long id);
     List<User> getUsersByIds(List<User> users);
     TaskPackage save(TaskPackage taskPackage);
-
-    //27.07
-    List<User> getUsersByTaskPackageId(Long taskPackageId);
 }

@@ -58,6 +58,12 @@ public class UserController {
         userService.deleteById(userId);
     }
 
+
+    //yeni
+//    @PostMapping("/register")
+//    public User registerUser(@RequestBody User user) {
+//        return userService.registerUser(user);
+ //   }
     @GetMapping("/{userId}/taskPackages")
     public List<TaskPackage> getTaskPackagesByUser(@PathVariable Long userId) {
         return userService.getTaskPackagesByUserId(userId);

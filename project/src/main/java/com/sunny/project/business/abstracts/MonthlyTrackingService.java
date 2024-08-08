@@ -5,7 +5,6 @@ import com.sunny.project.entities.Rate;
 import com.sunny.project.entities.TaskPackage;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface MonthlyTrackingService {
     List<MonthlyTracking> getAllTrackings();
@@ -15,7 +14,7 @@ public interface MonthlyTrackingService {
     List<TaskPackage> getTaskPackagesForUser(Long userId);
 
     List<Rate> getRates();
-    List<MonthlyTracking> findByUserIdAndMonth(Long userId, String month);
 
+    List<MonthlyTracking> findByUserIdAndMonth(Long userId, String month);
 
 }

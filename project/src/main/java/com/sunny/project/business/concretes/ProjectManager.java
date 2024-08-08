@@ -31,6 +31,8 @@ public class ProjectManager implements ProjectService {
     @Autowired
     private UserRepo userRepository;
 
+//yeni
+
     @Transactional
     @Override
     public List<Project> getAll() {
@@ -43,11 +45,15 @@ public class ProjectManager implements ProjectService {
         return projectRepo.save(newProject);
     }
 
+    //yeni
+
     @Transactional
     @Override
     public Optional<Project> getProjectById(Long projectId) {
         return projectRepo.findById(projectId);
     }
+
+    //yeni
 
     @Transactional
     @Override
@@ -61,7 +67,6 @@ public class ProjectManager implements ProjectService {
         projectRepo.deleteById(projectId);
 
     }
-
     @Transactional
     @Override
     public Project update(Project project) {
@@ -109,7 +114,9 @@ public class ProjectManager implements ProjectService {
         } else {
             throw new RuntimeException("Project not found.");
         }
-    }
+    }//yeni işlem 29.05
+
+//yeni
 
     @Transactional
     public List<User> getUsersByProjectId(Long projectId) {
@@ -118,3 +125,5 @@ public class ProjectManager implements ProjectService {
                 .collect(Collectors.toList());
     }
 }
+/*  @Autowired
+    private TaskPackageService taskPackageService;*/

@@ -32,8 +32,4 @@ public class MonthlyTracking {
 
     @Column(nullable = false)
     private String month; // String olarak tarih
-
-
-
-
 }

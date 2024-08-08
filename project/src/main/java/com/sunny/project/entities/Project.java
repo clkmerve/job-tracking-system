@@ -46,6 +46,8 @@ public class Project {
     @Column(name = "category")
     private String category;
 
+
+
     @JsonIgnore
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = false, fetch = FetchType.LAZY)
     private List<TaskPackage> taskPackages;

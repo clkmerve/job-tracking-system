@@ -27,10 +27,10 @@ public class TaskPackage {
     private String taskPackageName;
 
     @Column(name = "start_date")
-    private Timestamp startDate;
+    private Timestamp startDate;// java.sql.Date
 
     @Column(name = "end_date")
-    private Timestamp endDate;
+    private Timestamp endDate; // java.sql.Date
 
     @Column(name = "updated_at")
     private Timestamp updatedAt;
@@ -39,6 +39,7 @@ public class TaskPackage {
     @JoinColumn(name = "project_id", nullable = false)
     @JsonIgnoreProperties({"taskPackages", "hibernateLazyInitializer", "handler"})
     private Project project;
+
 
 
     @ManyToMany(fetch = FetchType.LAZY)

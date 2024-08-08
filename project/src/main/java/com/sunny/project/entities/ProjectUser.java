@@ -25,11 +25,13 @@ public class ProjectUser {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-
+    //    @JsonIgnoreProperties("project")
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     private Project project;
 
+//    @Transient
+//    private String projectName;
 
 }
