@@ -2,8 +2,10 @@ package com.sunny.project.business.concretes;
 
 import com.sunny.project.business.abstracts.MonthlyTrackingService;
 import com.sunny.project.dataAccess.MonthlyTrackingRepo;
+import com.sunny.project.dataAccess.ProjectRepo;
 import com.sunny.project.dataAccess.RateRepo;
 import com.sunny.project.entities.MonthlyTracking;
+import com.sunny.project.entities.Project;
 import com.sunny.project.entities.Rate;
 import com.sunny.project.entities.TaskPackage;
 import jakarta.transaction.Transactional;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 
@@ -28,6 +31,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
     public List<MonthlyTracking> getAllTrackings() {
         return monthlyTrackingRepo.findAll();
     }
+
     @Override
     public MonthlyTracking updateTracking(Long id, MonthlyTracking tracking) {
         MonthlyTracking existingTracking = monthlyTrackingRepo.findById(id)
@@ -75,6 +79,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
         existingTracking.setRate(tracking.getRate());
         existingTracking.setMonth(tracking.getMonth());
 
+
         return monthlyTrackingRepo.save(existingTracking);
     }
 
@@ -83,10 +88,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
     public void deleteTracking(Long id) {
         monthlyTrackingRepo.deleteById(id);
     }
-//    @Override
-//    public MonthlyTracking saveTracking(MonthlyTracking tracking) {
-//        return monthlyTrackingRepo.save(tracking);
-//    }
+
 
     @Override
     public List<TaskPackage> getTaskPackagesForUser(Long userId) {
@@ -110,6 +112,8 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
 
     @Override
     public MonthlyTracking saveTracking(MonthlyTracking tracking) {
+
+
         // Kullanıcının aynı ay içindeki mevcut atamalarını getirin
         List<MonthlyTracking> existingTrackings = monthlyTrackingRepo.findByUserIdAndMonth(tracking.getUser().getId(), tracking.getMonth());
 

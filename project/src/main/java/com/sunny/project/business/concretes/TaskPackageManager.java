@@ -26,7 +26,7 @@ public class TaskPackageManager implements TaskPackageService {
     @Autowired
     private ProjectUserService projectUserService;
     @Autowired
-    private UserService userService; // User hizmeti
+    private UserService userService;
 
     @Autowired
     private MonthlyTrackingRepo monthlyTrackingRepo;
@@ -67,10 +67,6 @@ public class TaskPackageManager implements TaskPackageService {
         }
     }
 
-//    @Override
-//    public void deleteTaskPackage(Long id) {
-//        taskPackageRepository.deleteById(id);
-//    }
 @Transactional
 @Override
 public void deleteTaskPackage(Long id) {
@@ -87,8 +83,6 @@ public void deleteTaskPackage(Long id) {
     }
 }
 
-
-
     public List<User> getUsersByIds(List<User> userIds) {
         List<User> userList = new ArrayList<>();
         for (User userId : userIds) {
@@ -101,5 +95,15 @@ public void deleteTaskPackage(Long id) {
     @Override
     public TaskPackage save(TaskPackage taskPackage) {
         return taskPackageRepository.save(taskPackage);
+    }
+
+
+    @Override
+    public List<User> getUsersByTaskPackageId(Long taskPackageId) {
+        TaskPackage taskPackage = taskPackageRepository.findById(taskPackageId).orElse(null);
+        if (taskPackage != null) {
+            return taskPackage.getUsers();
+        }
+        return List.of();
     }
 }
