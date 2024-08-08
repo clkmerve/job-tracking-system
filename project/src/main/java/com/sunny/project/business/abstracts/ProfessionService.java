@@ -8,7 +8,7 @@ import java.util.Optional;
 
 
 public interface ProfessionService {
-    //metotları tanımladığım yer.
+
     List<Profession> getAll();
     Profession save(Profession newProfession);
     Optional<Profession> getProfessionById(Long professionId);

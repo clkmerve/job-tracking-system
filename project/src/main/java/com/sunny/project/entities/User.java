@@ -47,7 +47,6 @@ public class User {
     @Column(name = "resignDate")
     private String resignDate;
 
-
     @ManyToMany(mappedBy = "users")
     @JsonIgnoreProperties({"users", "project", "hibernateLazyInitializer", "handler"})
     private List<TaskPackage> taskPackages;
@@ -59,13 +58,4 @@ public class User {
     @OneToMany(mappedBy = "user")
     private Set<MonthlyTracking> monthlyTrackings;
 
-
-//    @ManyToMany
-//    @JoinTable(
-//            name = "project_user",
-//            joinColumns = @JoinColumn(name = "user_id"),
-//            inverseJoinColumns = @JoinColumn(name = "project_id")
-//    )
-//    @JsonIgnoreProperties({"users", "project", "hibernateLazyInitializer", "handler"})
-//    private List<Project> projects;
 }

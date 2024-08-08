@@ -1,16 +1,12 @@
 package com.sunny.project.business.concretes;
-
 import com.sunny.project.business.abstracts.ProjectService;
 import com.sunny.project.business.abstracts.ProjectUserService;
 import com.sunny.project.business.abstracts.UserService;
 import com.sunny.project.dataAccess.ProjectUserRepo;
-import com.sunny.project.entities.Project;
 import com.sunny.project.entities.ProjectUser;
-import com.sunny.project.entities.User;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 @Service

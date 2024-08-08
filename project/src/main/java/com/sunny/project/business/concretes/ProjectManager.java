@@ -1,7 +1,6 @@
 package com.sunny.project.business.concretes;
 
 import com.sunny.project.business.abstracts.ProjectService;
-import com.sunny.project.business.abstracts.TaskPackageService;
 import com.sunny.project.dataAccess.ProjectRepo;
 import com.sunny.project.dataAccess.ProjectUserRepo;
 import com.sunny.project.dataAccess.UserRepo;
@@ -13,7 +12,6 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +29,6 @@ public class ProjectManager implements ProjectService {
     @Autowired
     private UserRepo userRepository;
 
-//yeni
-
     @Transactional
     @Override
     public List<Project> getAll() {
@@ -45,15 +41,11 @@ public class ProjectManager implements ProjectService {
         return projectRepo.save(newProject);
     }
 
-    //yeni
-
     @Transactional
     @Override
     public Optional<Project> getProjectById(Long projectId) {
         return projectRepo.findById(projectId);
     }
-
-    //yeni
 
     @Transactional
     @Override
@@ -67,6 +59,7 @@ public class ProjectManager implements ProjectService {
         projectRepo.deleteById(projectId);
 
     }
+
     @Transactional
     @Override
     public Project update(Project project) {
@@ -96,7 +89,7 @@ public class ProjectManager implements ProjectService {
                 }
             }
 
-            // Update project users
+
             if (existingProject.getProjectUsers() == null) {
                 existingProject.setProjectUsers(new ArrayList<>());
             } else {
@@ -114,9 +107,7 @@ public class ProjectManager implements ProjectService {
         } else {
             throw new RuntimeException("Project not found.");
         }
-    }//yeni işlem 29.05
-
-//yeni
+    }
 
     @Transactional
     public List<User> getUsersByProjectId(Long projectId) {
@@ -125,5 +116,3 @@ public class ProjectManager implements ProjectService {
                 .collect(Collectors.toList());
     }
 }
-/*  @Autowired
-    private TaskPackageService taskPackageService;*/

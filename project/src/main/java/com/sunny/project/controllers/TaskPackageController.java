@@ -31,18 +31,19 @@ public class TaskPackageController {
     }
 
 
+    @GetMapping("/{id}/users")
+    public ResponseEntity<List<User>> getUsersByTaskPackageId(@PathVariable Long id) {
+        List<User> users = taskPackageService.getUsersByTaskPackageId(id);
+        if (!users.isEmpty()) {
+            return ResponseEntity.ok(users);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @PostMapping
     public ResponseEntity<TaskPackage> createTaskPackage(@RequestBody TaskPackage taskPackage) {
-/*        // userIds'nin null olup olmadığını kontrol et
-        if (taskPackage.getUsers() == null) {
-            return ResponseEntity.badRequest().body(null);
-        }
 
-        // Kullanıcı kimliklerini User nesnelerine dönüştürme
-        List<User> users = taskPackageService.getUsersByIds(taskPackage.getUsers());
-        taskPackage.setUsers(users);
-*/
         TaskPackage createdTaskPackage = taskPackageService.createTaskPackage(taskPackage);
         return ResponseEntity.ok(createdTaskPackage);
     }

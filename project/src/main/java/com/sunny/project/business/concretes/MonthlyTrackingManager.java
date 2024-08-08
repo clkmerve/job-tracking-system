@@ -9,7 +9,6 @@ import com.sunny.project.entities.TaskPackage;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,18 +27,18 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
     public List<MonthlyTracking> getAllTrackings() {
         return monthlyTrackingRepo.findAll();
     }
+
     @Override
     public MonthlyTracking updateTracking(Long id, MonthlyTracking tracking) {
         MonthlyTracking existingTracking = monthlyTrackingRepo.findById(id)
                 .orElseThrow(() -> new RuntimeException("Aylık izleme bulunamadı: " + id));
 
-        // Kullanıcının aynı ay içindeki mevcut atamalarını getirin (güncellenen kayıt hariç)
+
         List<MonthlyTracking> existingTrackings = monthlyTrackingRepo.findByUserIdAndMonth(tracking.getUser().getId(), tracking.getMonth())
                 .stream()
                 .filter(mt -> !mt.getId().equals(id))
                 .collect(Collectors.toList());
 
-        // Mevcut toplam atama miktarını hesaplayın
         double currentTotalAllocation = existingTrackings.stream()
                 .mapToDouble(mt -> {
                     if (mt.getRate() != null && mt.getRate().getRate() != null) {
@@ -54,7 +53,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
                 })
                 .sum();
 
-        // Yeni atamanın rate değerini kontrol edin
+
         if (tracking.getRate() != null && tracking.getRate().getRate() != null) {
             try {
                 currentTotalAllocation += Double.parseDouble(tracking.getRate().getRate());
@@ -65,7 +64,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
             throw new RuntimeException("Yeni atama için rate değeri null olamaz.");
         }
 
-        // Yeni atama eklenirse 1.0'ı geçerse hata fırlatın
+        // Yeni atama eklenirse 1.0'ı geçerse hata veriyor
         if (currentTotalAllocation > 1.0) {
             throw new RuntimeException("Bir kullanıcının bir ay içindeki toplam atama miktarı 1.0'ı geçemez.");
         }
@@ -75,6 +74,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
         existingTracking.setRate(tracking.getRate());
         existingTracking.setMonth(tracking.getMonth());
 
+
         return monthlyTrackingRepo.save(existingTracking);
     }
 
@@ -83,10 +83,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
     public void deleteTracking(Long id) {
         monthlyTrackingRepo.deleteById(id);
     }
-//    @Override
-//    public MonthlyTracking saveTracking(MonthlyTracking tracking) {
-//        return monthlyTrackingRepo.save(tracking);
-//    }
+
 
     @Override
     public List<TaskPackage> getTaskPackagesForUser(Long userId) {
@@ -110,10 +107,12 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
 
     @Override
     public MonthlyTracking saveTracking(MonthlyTracking tracking) {
-        // Kullanıcının aynı ay içindeki mevcut atamalarını getirin
+
+
+        // Kullanıcının aynı ay içindeki mevcut atamalar
         List<MonthlyTracking> existingTrackings = monthlyTrackingRepo.findByUserIdAndMonth(tracking.getUser().getId(), tracking.getMonth());
 
-        // Mevcut toplam atama miktarını hesaplayın
+        // Mevcut toplam atama miktarını hesaplama
         double currentTotalAllocation = existingTrackings.stream()
                 .mapToDouble(mt -> {
                     if (mt.getRate() != null && mt.getRate().getRate() != null) {
@@ -128,7 +127,7 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
                 })
                 .sum();
 
-        // Yeni atamanın rate değerini kontrol edin
+        // Yeni atamadan önce rate değeri kontrol ediyor
         if (tracking.getRate() != null && tracking.getRate().getRate() != null) {
             try {
                 currentTotalAllocation += Double.parseDouble(tracking.getRate().getRate());
@@ -139,12 +138,12 @@ public class MonthlyTrackingManager implements MonthlyTrackingService {
             throw new RuntimeException("Yeni atama için rate değeri null olamaz.");
         }
 
-        // Yeni atama eklenirse 1.0'ı geçerse hata fırlatın
+        // Yeni atama  1.0'ı geçerse hata gösteriyor
         if (currentTotalAllocation > 1.0) {
             throw new RuntimeException("Bir kullanıcının bir ay içindeki toplam atama miktarı 1.0'ı geçemez.");
         }
 
-        // Yeni atamayı kaydedin
+
         return monthlyTrackingRepo.save(tracking);
     }
 

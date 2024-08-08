@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 @AllArgsConstructor
 public class UserManager implements UserService {
+
     @Autowired
     private UserRepo userRepo;
     @Autowired
@@ -46,7 +47,7 @@ public class UserManager implements UserService {
 
 
 
-    // Örnek bir metot: Kullanıcının atandığı projeleri listele
+
     public List<Project> getUserAssignedProjects(User user) {
         List<TaskPackage> taskPackages = user.getTaskPackages(); // Kullanıcının aldığı tüm görev paketlerini al
         List<Project> projects = new ArrayList<>(); // Projeleri tutacak bir liste oluştur
@@ -54,7 +55,7 @@ public class UserManager implements UserService {
         // Her görev paketinin projelerini al ve projeler listesine ekle
         for (TaskPackage taskPackage : taskPackages) {
             Project project = taskPackage.getProject(); // Görev paketinin ait olduğu proje
-            if (project != null && !projects.contains(project)) { // Proje daha önce eklenmediyse
+            if (project != null && !projects.contains(project)) {
                 projects.add(project); // Projeyi listeye ekle
             }
         }
